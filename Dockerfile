@@ -9,16 +9,16 @@ WORKDIR /go/src/github.com/latonaio
 
 COPY . .
 RUN go mod download
-RUN go build -o data-platform-api-purchase-requisition-cancels-rmq-kube ./
+RUN go build -o data-platform-api-purchase-requisition-releases-rmq-kube ./
 
 # Runtime Container
 FROM alpine:3.14
 RUN apk add --no-cache libc6-compat
-ENV SERVICE=data-platform-api-purchase-requisition-cancels-rmq-kube \
+ENV SERVICE=data-platform-api-purchase-requisition-releases-rmq-kube \
     APP_DIR="${AION_HOME}/${POSITION}/${SERVICE}"
 
 WORKDIR ${AION_HOME}
 
-COPY --from=builder /go/src/github.com/latonaio/data-platform-api-purchase-requisition-cancels-rmq-kube .
+COPY --from=builder /go/src/github.com/latonaio/data-platform-api-purchase-requisition-releases-rmq-kube .
 
-CMD ["./data-platform-api-purchase-requisition-cancels-rmq-kube"]
+CMD ["./data-platform-api-purchase-requisition-releases-rmq-kube"]
